@@ -3,8 +3,63 @@ import React, { useState } from "react";
 export const NewGroup = () => {
   const [matches, setmatches] = useState<Match[]>([]);
 
-  function asdf() {
-    console.log(names);
+  function tarkista() {
+    var allPlayers: Player[] = [];
+
+    matches.forEach(match => {
+      match.teams.forEach(team => {
+        team.players.forEach(player => {
+          allPlayers.push(player);
+        });
+      });
+    });
+
+    var uniquePlayers = allPlayers
+      .map(player => player.name)
+      .filter((name, index, self) => {
+        return self.indexOf(name) === index;
+      });
+
+    uniquePlayers.forEach(player => {
+      console.log(player);
+      console.log("----");
+
+      var tmpmatches: Match[] = [];
+
+      matches.forEach(match => {
+        match.teams.forEach(team => {
+          team.players.forEach(tmpplayer => {
+            if (tmpplayer.name === player) {
+              tmpmatches.push(match);
+            }
+          });
+        });
+      });
+      console.log("Matches: \t" + tmpmatches.length);
+
+      var tmpplayers: Player[] = [];
+
+      tmpmatches.forEach(match => {
+        match.teams.forEach(team => {
+          team.players.forEach(player => {
+            tmpplayers.push(player);
+          });
+        });
+      });
+
+      uniquePlayers.forEach(player2 => {
+        if (player2 != player) {
+          console.log(
+            player2 +
+              "\t" +
+              tmpplayers.filter(tmpplayer => {
+                return tmpplayer.name === player2;
+              }).length
+          );
+        }
+      });
+      console.log("----");
+    });
   }
 
   function handleChange(event: any) {
@@ -66,6 +121,41 @@ export const NewGroup = () => {
     return sumOfGames;
   }
 
+  function bestOpponent(team1: Team, sortedTeams: Team[], matches: Match[]) {
+    var tmpmatches = matches.filter(match => {
+      return (
+        match.teams[0].players.includes(team1.players[0]) ||
+        match.teams[0].players.includes(team1.players[1]) ||
+        match.teams[1].players.includes(team1.players[0]) ||
+        match.teams[1].players.includes(team1.players[1])
+      );
+    });
+
+    var tmpteams = sortedTeams.sort((a, b) => {
+      var aMatchesAgainst = teamOccuredInMatches(a, tmpmatches);
+      var bMatchesAgainst = teamOccuredInMatches(b, tmpmatches);
+
+      return aMatchesAgainst - bMatchesAgainst;
+    });
+
+    return tmpteams;
+  }
+
+  function teamOccuredInMatches(team: Team, matches: Match[]) {
+    var totalOccurences = 0;
+    matches.forEach(match => {
+      match.teams.forEach(tmpteam => {
+        if (
+          tmpteam.players.includes(team.players[0]) ||
+          tmpteam.players.includes(team.players[1])
+        ) {
+          totalOccurences++;
+        }
+      });
+    });
+    return totalOccurences;
+  }
+
   function generateMatches(playerNames: Array<string>) {
     console.log(playerNames);
     var players: Player[] = [];
@@ -91,6 +181,7 @@ export const NewGroup = () => {
 
       var team1 = teams[0];
 
+      teams = bestOpponent(team1, teams, matches);
       var team2 = returnValidTeam(teams, team1);
 
       if (team1 && team2) {
@@ -116,13 +207,13 @@ export const NewGroup = () => {
   }
 
   let names = `test1
-  test2
-  test3
-  test4
-  test5
-  test6
-  ptest7
-  test8`;
+test2
+test3
+test4
+test5
+test6
+test7
+test8`;
   return (
     <div>
       <form action="" onSubmit={handleSubmit} className="flex-col flex m-8">
@@ -152,11 +243,11 @@ export const NewGroup = () => {
         </label>
         <input type="submit" value="Submit"></input>
       </form>
-      <button onClick={asdf}>paina</button>
+      <button onClick={tarkista}>paina</button>
       <div>
-        {matches?.map((match: Match) => {
+        {matches?.map((match: Match, index: number) => {
           return (
-            <div>
+            <div key={index}>
               {match.roundno}
               {match.matchno}
               {match.teams[0].players[0].name}
