@@ -48,7 +48,7 @@ export const NewGroup = () => {
       });
 
       uniquePlayers.forEach(player2 => {
-        if (player2 != player) {
+        if (player2 !== player) {
           console.log(
             player2 +
               "\t" +
@@ -62,9 +62,6 @@ export const NewGroup = () => {
     });
   }
 
-  function handleChange(event: any) {
-    console.log(event.target.value);
-  }
   function handleSubmit(event: any) {
     event.preventDefault();
     stringSplit(event.target.Names.value);
@@ -219,12 +216,7 @@ test8`;
       <form action="" onSubmit={handleSubmit} className="flex-col flex m-8">
         <label htmlFor="">
           Names:
-          <textarea
-            name="Names"
-            defaultValue={names}
-            onChange={handleChange}
-            rows={8}
-          ></textarea>
+          <textarea name="Names" defaultValue={names} rows={8}></textarea>
         </label>
         <label htmlFor="">
           Rounds:
@@ -243,7 +235,7 @@ test8`;
         </label>
         <input type="submit" value="Submit"></input>
       </form>
-      <button onClick={tarkista}>paina</button>
+      <button onClick={tarkista}>Testaaa</button>
       <div>
         {matches?.map((match: Match, index: number) => {
           return (
