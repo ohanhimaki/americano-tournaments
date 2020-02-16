@@ -1,6 +1,10 @@
-import React from "react";
+import React, { ReactComponentElement, useState } from "react";
+
+function forceUpdate2() {}
 
 export const NewGroup = () => {
+  const [matches, setmatches] = useState<Match[]>([]);
+
   function asdf() {
     console.log(names);
   }
@@ -15,20 +19,98 @@ export const NewGroup = () => {
 
   function stringSplit(stringSplit: string, splitwith: string = "\n") {
     var players: Array<string> = stringSplit.split("\n");
-    generateMatches(players);
+    setmatches(generateMatches(players));
+  }
+
+  interface Player {
+    name: string;
+    games: number;
+  }
+
+  interface Team {
+    players: Array<Player>;
   }
 
   interface Match {
-    t1p1: string;
-    t1p2: string;
-    t2p1: string;
-    t2p2: string;
+    teams: Array<Team>;
   }
 
-  function generateMatches(players: Array<string>) {
-    console.log(players);
+  function returnValidTeam(teams: Team[], team1: Team) {
+    return teams.filter(team => {
+      return (
+        !team.players.includes(team1.players[0]) &&
+        !team.players.includes(team1.players[1])
+      );
+    })[0];
+  }
 
-    var Matches: Match[] = [];
+  function removeTeams(teams: Team[], team1: Team, team2: Team) {
+    if (teams && team1 && team2) {
+      return teams.filter(team => {
+        return team.players !== team1.players && team.players !== team2.players;
+      });
+    } else {
+      console.log(teams);
+      console.log(team1);
+      console.log(team2);
+      return [];
+    }
+  }
+
+  function sumGamesOfTeam(team: Team) {
+    var sumOfGames = 0;
+    team.players.forEach(x => {
+      sumOfGames = sumOfGames + x.games;
+    });
+
+    return sumOfGames;
+  }
+
+  function generateMatches(playerNames: Array<string>) {
+    console.log(playerNames);
+    var players: Player[] = [];
+    var teams: Team[] = [];
+    var matches: Match[] = [];
+
+    playerNames.forEach(name => {
+      players.push({ name: name, games: 0 });
+    });
+
+    for (let i = 0; i < playerNames.length - 1; i++) {
+      for (let j = i + 1; j < playerNames.length; j++) {
+        teams.push({ players: [players[i], players[j]] });
+      }
+    }
+    teams = teams.sort(() => 0.5 - Math.random());
+
+    while (teams.length > 0) {
+      teams.sort((a, b) => {
+        return sumGamesOfTeam(a) - sumGamesOfTeam(b);
+      });
+
+      console.log(sumGamesOfTeam(teams[0]));
+
+      var team1 = teams[0];
+
+      var team2 = returnValidTeam(teams, team1);
+
+      if (team1 && team2) {
+        team1.players.forEach(player => {
+          player.games++;
+        });
+        team2.players.forEach(player => {
+          player.games++;
+        });
+        matches.push({ teams: [team1, team2] });
+
+        teams = removeTeams(teams, team1, team2);
+      } else {
+        break;
+      }
+    }
+    console.log(matches.length);
+
+    return matches;
   }
 
   let names = `test1
@@ -69,6 +151,18 @@ export const NewGroup = () => {
         <input type="submit" value="Submit"></input>
       </form>
       <button onClick={asdf}>paina</button>
+      <div>
+        {matches?.map((match: Match) => {
+          return (
+            <div>
+              {match.teams[0].players[0].name}
+              {match.teams[0].players[1].name}
+              {match.teams[1].players[0].name}
+              {match.teams[1].players[1].name}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
