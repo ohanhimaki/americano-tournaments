@@ -1,6 +1,4 @@
-import React, { ReactComponentElement, useState } from "react";
-
-function forceUpdate2() {}
+import React, { useState } from "react";
 
 export const NewGroup = () => {
   const [matches, setmatches] = useState<Match[]>([]);
@@ -32,6 +30,8 @@ export const NewGroup = () => {
   }
 
   interface Match {
+    matchno: number;
+    roundno: number;
     teams: Array<Team>;
   }
 
@@ -82,13 +82,12 @@ export const NewGroup = () => {
       }
     }
     teams = teams.sort(() => 0.5 - Math.random());
-
+    var i = 0;
     while (teams.length > 0) {
+      i++;
       teams.sort((a, b) => {
         return sumGamesOfTeam(a) - sumGamesOfTeam(b);
       });
-
-      console.log(sumGamesOfTeam(teams[0]));
 
       var team1 = teams[0];
 
@@ -101,14 +100,17 @@ export const NewGroup = () => {
         team2.players.forEach(player => {
           player.games++;
         });
-        matches.push({ teams: [team1, team2] });
+        matches.push({
+          matchno: i,
+          roundno: sumGamesOfTeam(team1) / 2,
+          teams: [team1, team2]
+        });
 
         teams = removeTeams(teams, team1, team2);
       } else {
         break;
       }
     }
-    console.log(matches.length);
 
     return matches;
   }
@@ -155,6 +157,8 @@ export const NewGroup = () => {
         {matches?.map((match: Match) => {
           return (
             <div>
+              {match.roundno}
+              {match.matchno}
               {match.teams[0].players[0].name}
               {match.teams[0].players[1].name}
               {match.teams[1].players[0].name}
