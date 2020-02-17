@@ -4,4 +4,4 @@ base = "americano-tournaments.web/"
 
 command = "npm run build"
 
-publish = "americano-tournaments.web/build/"
+publish = "build/"
