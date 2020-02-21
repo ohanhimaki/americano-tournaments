@@ -30,18 +30,18 @@ export const Matches = () => {
                 <td className="border px-4 py-2">{match.matchno}</td>
                 <td className="border px-4 py-2">
                   <span className="text-left inline-block">
-                    {match.teams[0].players[0].name}
+                    {match.team1.players[0].name}
                   </span>
-                  <span>{match.teams[0].players[1].name}</span>
+                  <span>{match.team1.players[1].name}</span>
                 </td>
 
                 {/* <td className="border px-4 py-2">{match.scores[0].score}</td>
                 <td className="border px-4 py-2">{match.scores?[1].score[0]}</td> */}
 
-                <td className="border px-4 py-2"></td>
+                {/* <td className="border px-4 py-2"></td> */}
                 <td className="border px-4 py-2">
-                  {match.teams[1].players[0].name}
-                  {match.teams[1].players[1].name}
+                  {match.team2.players[0].name}
+                  {match.team2.players[1].name}
                 </td>
               </tr>
             );

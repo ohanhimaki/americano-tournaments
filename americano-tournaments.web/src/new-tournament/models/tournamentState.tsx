@@ -32,9 +32,11 @@ export default class tournamentState {
       this.matches.push({
         matchno: match.matchno,
         roundno: match.roundno,
-        teams: match.teams,
+        team1: match.team1,
+        team2: match.team2,
         points: pointsPerServe,
-        scores: [{ score: [0] }, { score: [0] }],
+        score1: 0,
+        score2: 0,
         status: 0,
         startTime: startTime
       });

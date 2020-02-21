@@ -1,9 +1,11 @@
 export default interface Match {
   matchno: number;
   roundno: number;
-  teams: Array<Team>;
+  team1: Team;
+  team2: Team;
   points?: number;
-  scores?: Array<Score>;
+  score1?: number;
+  score2?: number;
   status?: number;
   startTime?: Date;
 }
