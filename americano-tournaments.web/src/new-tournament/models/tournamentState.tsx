@@ -41,5 +41,7 @@ export default class tournamentState {
         startTime: startTime
       });
     });
+
+    var tmpPlayers = [];
   }
 }

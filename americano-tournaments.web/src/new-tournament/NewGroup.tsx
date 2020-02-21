@@ -33,7 +33,7 @@ test6
 test7
 test8`;
   return (
-    <div>
+    <div className=" m-auto items-center">
       {tournamentInst.matches.length === 0 && (
         <form action="" onSubmit={handleSubmit} className="flex-col flex m-8">
           <label htmlFor="">
