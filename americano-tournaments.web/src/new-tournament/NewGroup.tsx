@@ -4,6 +4,7 @@ import Match, { Player, Team } from "./models/tournament";
 import generateMatches, { tarkista } from "./services/GenerateGroup";
 import tournamentState from "./models/tournamentState";
 import { Matches } from "./Matches";
+import { GroupLeaderboard } from "./GroupLeaderboard";
 
 export const NewGroup = () => {
   const [teststate, setteststate] = useState(new Date());
@@ -47,6 +48,9 @@ test8`;
           </label>
           <input type="submit" value="Submit"></input>
         </form>
+      )}
+      {tournamentInst.matches.length != 0 && (
+        <GroupLeaderboard></GroupLeaderboard>
       )}
       {tournamentInst.matches.length != 0 && <Matches></Matches>}
     </div>
