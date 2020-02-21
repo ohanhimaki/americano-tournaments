@@ -11,24 +11,43 @@ export const Matches = () => {
   return (
     <div>
       <button onClick={testaa}>testaa childista</button>
-      {tournamentinst.matches.map((match: Match, index: number) => {
-        return (
-          <div key={index}>
-            <div>
-              {match.roundno}
-              {match.matchno}
-            </div>
-            <div>
-              {match.teams[0].players[0].name}
-              {match.teams[0].players[1].name}
-            </div>
-            <div>
-              {match.teams[1].players[0].name}
-              {match.teams[1].players[1].name}
-            </div>{" "}
-          </div>
-        );
-      })}
+      <table className="table-auto">
+        <thead>
+          <tr>
+            <th className="px-4 py-2">Kierros</th>
+            <th className="px-4 py-2">Ottelu</th>
+            <th className="px-4 py-2">Joukkue 1</th>
+            {/* <th className="px-4 py-2"></th>
+            <th className="px-4 py-2"></th> */}
+            <th className="px-4 py-2">Joukkue 2</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tournamentinst.matches.map((match: Match, index: number) => {
+            return (
+              <tr key={index}>
+                <td className="border px-4 py-2">{match.roundno}</td>
+                <td className="border px-4 py-2">{match.matchno}</td>
+                <td className="border px-4 py-2">
+                  <span className="text-left inline-block">
+                    {match.teams[0].players[0].name}
+                  </span>
+                  <span>{match.teams[0].players[1].name}</span>
+                </td>
+
+                {/* <td className="border px-4 py-2">{match.scores[0].score}</td>
+                <td className="border px-4 py-2">{match.scores?[1].score[0]}</td> */}
+
+                <td className="border px-4 py-2"></td>
+                <td className="border px-4 py-2">
+                  {match.teams[1].players[0].name}
+                  {match.teams[1].players[1].name}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };

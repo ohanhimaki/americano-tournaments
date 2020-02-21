@@ -51,7 +51,7 @@ test8`;
           <input type="submit" value="Submit"></input>
         </form>
       )}
-      <Matches></Matches>
+      {tournamentInst.matches.length != 0 && <Matches></Matches>}
     </div>
   );
 };
