@@ -17,10 +17,7 @@ export const NewGroup = () => {
   function handleSubmit(event: any) {
     event.preventDefault();
     let players = stringSplit(event.target.Names.value);
-    var tmpmatches = generateMatches(players);
-    console.log(tmpmatches);
-
-    tournamentState.createMatches(tmpmatches);
+    tournamentState.createMatches(players);
     setteststate(new Date());
   }
 

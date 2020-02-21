@@ -1,34 +1,43 @@
-import Match from "./tournament";
+import Match, { Player } from "./tournament";
+import generateMatches from "../services/GenerateGroup";
 
 export default class tournamentState {
   static myInstance: tournamentState = new tournamentState();
   matches: Match[] = [];
+  players: Player[] = [];
 
   static getInstance() {
     return this.myInstance;
   }
 
   static createMatches(
-    matchesParam?: Match[],
+    players?: string[],
     pointsPerServe: number = 4,
     startTime: Date = new Date()
   ) {
     tournamentState.myInstance = new tournamentState(
-      matchesParam,
+      players,
       pointsPerServe,
       startTime
     );
   }
 
   constructor(
-    matchesParam?: Match[],
+    playerNamesArray?: string[],
     pointsPerServe: number = 4,
     startTime: Date = new Date()
   ) {
-    if (matchesParam === undefined) {
+    if (playerNamesArray === undefined) {
       return;
     }
-    matchesParam.forEach(match => {
+
+    playerNamesArray.forEach(name => {
+      this.players.push({ name: name, games: 0 });
+    });
+
+    const tmpMatches = generateMatches(this.players);
+
+    tmpMatches.forEach(match => {
       this.matches.push({
         matchno: match.matchno,
         roundno: match.roundno,

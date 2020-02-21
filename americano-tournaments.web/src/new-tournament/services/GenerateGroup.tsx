@@ -134,18 +134,12 @@ function teamOccuredInMatches(team: Team, matches: Match[]) {
   return totalOccurences;
 }
 
-export default function generateMatches(playerNames: Array<string>) {
-  console.log(playerNames);
-  var players: Player[] = [];
+export default function generateMatches(players: Array<Player>) {
   var teams: Team[] = [];
   var matches: Match[] = [];
 
-  playerNames.forEach(name => {
-    players.push({ name: name, games: 0 });
-  });
-
-  for (let i = 0; i < playerNames.length - 1; i++) {
-    for (let j = i + 1; j < playerNames.length; j++) {
+  for (let i = 0; i < players.length - 1; i++) {
+    for (let j = i + 1; j < players.length; j++) {
       teams.push({ players: [players[i], players[j]] });
     }
   }
