@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import Match, { Player, Team } from "./models/tournament";
 import generateMatches, { tarkista } from "./services/GenerateGroup";
-
+import tournamentState from "./models/tournamentState";
+import { Matches } from "./Matches";
 export const NewGroup = () => {
   const [matches, setmatches] = useState<Match[]>([]);
 
+  const [groupState, setgroupState] = useState<tournamentState>();
+
+  const test = tournamentState.getInstance();
+
   function stringSplit(stringSplit: string, splitwith: string = "\n") {
     var players: Array<string> = stringSplit.split("\n");
-    setmatches(generateMatches(players));
+    var tmpmatches = generateMatches(players);
+    tournamentState.createMatches(tmpmatches);
+    // setgroupState(new tournamentState(tmpmatches));
+    console.log(groupState);
+
+    setmatches(tmpmatches);
   }
 
   function handleSubmit(event: any) {
@@ -17,6 +27,10 @@ export const NewGroup = () => {
 
   function tarkistaOnClick() {
     tarkista(matches);
+  }
+
+  function tarkistaState() {
+    console.log(test);
   }
 
   let names = `test1
@@ -29,29 +43,25 @@ test7
 test8`;
   return (
     <div>
-      <form action="" onSubmit={handleSubmit} className="flex-col flex m-8">
-        <label htmlFor="">
-          Names:
-          <textarea name="Names" defaultValue={names} rows={8}></textarea>
-        </label>
-        <label htmlFor="">
-          Rounds:
-          <input type="text" name="name"></input>
-        </label>
-        <label htmlFor="">
-          :<input type="text" name="name"></input>
-        </label>
-        <label htmlFor="">
-          Names:
-          <input type="text" name="name"></input>
-        </label>
-        <label htmlFor="">
-          Names:
-          <input type="text" name="name"></input>
-        </label>
-        <input type="submit" value="Submit"></input>
-      </form>
+      {test.matches.length === 0 && (
+        <form action="" onSubmit={handleSubmit} className="flex-col flex m-8">
+          <label htmlFor="">
+            Names:
+            <textarea name="Names" defaultValue={names} rows={8}></textarea>
+          </label>
+          <label htmlFor="">
+            Points:
+            <input type="text" name="points"></input>
+          </label>
+          <label htmlFor="">
+            StartTime:
+            <input type="datetime-local" name="startTime"></input>
+          </label>
+          <input type="submit" value="Submit"></input>
+        </form>
+      )}
       <button onClick={tarkistaOnClick}>Testaaa</button>
+      <button onClick={tarkistaState}>Testastate</button>
       <div>
         {matches?.map((match: Match, index: number) => {
           return (
@@ -66,6 +76,7 @@ test8`;
           );
         })}
       </div>
+      <Matches></Matches>
     </div>
   );
 };
