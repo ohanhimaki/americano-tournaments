@@ -49,10 +49,10 @@ test8`;
           <input type="submit" value="Submit"></input>
         </form>
       )}
-      {tournamentInst.matches.length != 0 && (
+      {tournamentInst.matches.length !== 0 && (
         <GroupLeaderboard></GroupLeaderboard>
       )}
-      {tournamentInst.matches.length != 0 && <Matches></Matches>}
+      {tournamentInst.matches.length !== 0 && <Matches></Matches>}
     </div>
   );
 };

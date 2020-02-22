@@ -167,7 +167,9 @@ export default function generateMatches(players: Array<Player>) {
         matchno: i,
         roundno: sumGamesOfTeam(team1) / 2,
         team1: team1,
-        team2: team2
+        team2: team2,
+        score1: 0,
+        score2: 0
       });
 
       teams = removeTeams(teams, team1, team2);
