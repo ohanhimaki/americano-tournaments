@@ -133,7 +133,7 @@ export default class tournamentState {
       });
     });
     tmpLeaderboard.sort((a, b) => {
-      if (a.points != b.points) {
+      if (a.points !== b.points) {
         return b.points - a.points;
       } else {
         return b.wins - a.wins;

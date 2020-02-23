@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Match, { Player, Team } from "./models/tournament";
 
-import generateMatches, { tarkista } from "./services/GenerateGroup";
 import tournamentState from "./models/tournamentState";
 import { Matches } from "./Matches";
 import { GroupLeaderboard } from "./GroupLeaderboard";

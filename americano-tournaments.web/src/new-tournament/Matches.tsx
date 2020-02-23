@@ -27,13 +27,13 @@ export const Matches = () => {
   }
 
   function getPlayer(player?: Player) {
-    let classstring = "bg-blue-300";
+    let classstring = "";
     if (!player) {
       return;
     }
 
     if (player.name === highlightedPlayer) {
-      classstring = "bg-red-300";
+      classstring = "bg-blue-300";
     }
     classstring += " py-2 px-4";
     return (
@@ -43,14 +43,113 @@ export const Matches = () => {
     );
   }
 
-  function getMatchStateString(state?: number) {
-    if (state === 0) {
-      return "upcoming";
-    } else if (state === 1) {
-      return "ongoing";
-    } else if (state === 2) {
-      return "finished";
+  function getMatchState(match?: Match) {
+    if (!match) {
+      console.log(match);
+
+      return;
     }
+
+    const state = match?.status;
+    let statestring = "";
+
+    if (state === 0) {
+      statestring = "upcoming";
+    } else if (state === 1) {
+      statestring = "ongoing";
+    } else if (state === 2) {
+      statestring = "finished";
+    }
+
+    return (
+      <td className="border px-4 py-2" onClick={() => changeStatus(match)}>
+        <button>{statestring}</button>
+      </td>
+    );
+  }
+
+  function scoreButtons(match: Match, team: Team) {
+    if (match.status != 1) {
+      return;
+    }
+    return (
+      <div className="flex-initial self-auto">
+        <button
+          className="border-black bg-gray-700 rounded-t-md "
+          onClick={() => addScore(match, team, 1)}
+        >
+          1
+        </button>
+        <button
+          className="border-black bg-gray-700 rounded-t-md "
+          onClick={() => addScore(match, team, 2)}
+        >
+          2
+        </button>
+        <button
+          className="border-black bg-gray-700 rounded-t-md "
+          onClick={() => addScore(match, team, 3)}
+        >
+          3
+        </button>
+        <button
+          className="border-black bg-gray-700 rounded-t-md "
+          onClick={() => addScore(match, team, 4)}
+        >
+          4
+        </button>
+        <button
+          className="border-black bg-gray-700 rounded-t-md "
+          onClick={() => addScore(match, team, -1)}
+        >
+          {" "}
+          -
+        </button>
+      </div>
+    );
+  }
+
+  function getScores(match: Match) {
+    let team1class =
+      " align-middle flex flex-col justify-between  items-stretch";
+    let team2class = team1class;
+    if (match.status === 2) {
+      if (match.score1 > match.score2) {
+        team1class += " bg-green-500";
+        team2class += " bg-red-500";
+      } else if (match.score2 > match.score1) {
+        team2class += " bg-green-500";
+        team1class += " bg-red-500";
+      } else {
+        team1class += " bg-yellow-500";
+        team2class += " bg-yellow-500";
+      }
+    }
+    return (
+      <>
+        <td className="border">
+          <div className={team1class}>
+            <div className="text-center flex-auto ">{match.score1}</div>
+            {scoreButtons(match, match.team1)}
+          </div>
+        </td>
+        <td className="border">
+          <div className={team1class}>
+            <div className="text-center">{match.score2}</div>
+            {scoreButtons(match, match.team2)}
+          </div>
+        </td>
+      </>
+    );
+  }
+  function rowStatusClass(match: Match) {
+    let rowClass = "";
+    if (match.status === 1) {
+      rowClass = "bg-green-600";
+    } else if (match.status === 2) {
+      rowClass = "";
+    }
+    return rowClass;
   }
 
   return (
@@ -70,35 +169,19 @@ export const Matches = () => {
         <tbody>
           {tournamentinst.matches.map((match: Match, index: number) => {
             return (
-              <tr key={index}>
+              <tr key={index} className={rowStatusClass(match)}>
                 <td className="border px-4 py-2">{match.roundno}</td>
                 <td className="border px-4 py-2">{match.matchno}</td>
                 <td className="border">
                   {getPlayer(match.team1.players[0])}
                   {getPlayer(match.team1.players[1])}
                 </td>
-                <td
-                  className="border px-4 py-2"
-                  onClick={() => addScore(match, match.team1, 1)}
-                >
-                  <button>{match.score1}</button>
-                </td>
-                <td
-                  className="border px-4 py-2"
-                  onClick={() => addScore(match, match.team2, 1)}
-                >
-                  <button>{match.score2}</button>
-                </td>
-                <td className="border px-4 py-2">
+                {getScores(match)}
+                <td className="border">
                   {getPlayer(match.team2.players[0])}
                   {getPlayer(match.team2.players[1])}
                 </td>
-                <td
-                  className="border px-4 py-2"
-                  onClick={() => changeStatus(match)}
-                >
-                  <button>{getMatchStateString(match.status)}</button>
-                </td>
+                {getMatchState(match)}
               </tr>
             );
           })}
