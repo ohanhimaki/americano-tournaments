@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import tournamentState from "./models/tournamentState";
 
-export const GroupLeaderboard = () => {
-  const [updated, setupdated] = useState(new Date());
-  const tournamentInst = tournamentState.getInstance();
+interface Props {
+  updated: Date;
+}
 
+export const GroupLeaderboard = ({ updated }: Props) => {
+  const tournamentInst = tournamentState.getInstance();
   const leaderboard = tournamentInst.getLeaderboard();
 
-  function testaa() {
-    setupdated(new Date());
-    console.log(leaderboard);
-    console.log(tournamentInst.getLeaderboard());
-  }
-
   return (
-    <div>
-      <table>
+    <div className="m-auto max-w-2xl bg-gray-800 text-gray-300 rounded-lg py-8 my-8">
+      <table className="table-auto m-auto">
         <thead>
           <tr>
             <th className="px-4 py-2">Name</th>
@@ -24,16 +20,6 @@ export const GroupLeaderboard = () => {
             <th className="px-4 py-2">Wins</th>
           </tr>
         </thead>
-        {/* <tbody>
-          {tournamentInst.players.map((player: Player, index: number) => {
-            return (
-              <tr key={index}>
-                <td className="border px-4 py-2">{player.name}</td>
-                <td className="border px-4 py-2">{player.games}</td>
-              </tr>
-            );
-          })}
-        </tbody> */}
         <tbody>
           {leaderboard.map((row, index) => {
             return (
@@ -47,7 +33,6 @@ export const GroupLeaderboard = () => {
           })}
         </tbody>
       </table>
-      <button onClick={testaa}>testaa</button>
     </div>
   );
 };
