@@ -5,11 +5,16 @@ import Match, { Team, Player } from "./models/tournament";
 interface Props {
   updated: Date;
   pageupdated: Function;
+  highlightedPlayer: string;
+  highlightPlayer: Function;
 }
 
-export const Matches = ({ updated, pageupdated }: Props) => {
-  const [highlightedPlayer, sethighlightedPlayer] = useState("");
-
+export const Matches = ({
+  updated,
+  pageupdated,
+  highlightedPlayer,
+  highlightPlayer
+}: Props) => {
   const tournamentinst = tournamentState.getInstance();
 
   function addScore(match: Match, team: Team, sumToAdd: number) {
@@ -21,17 +26,6 @@ export const Matches = ({ updated, pageupdated }: Props) => {
     tournamentinst.updateMatchStatus(match);
 
     pageupdated();
-  }
-
-  function highlightPlayer(player?: Player) {
-    if (!player) {
-      return;
-    } else if (player.name === highlightedPlayer) {
-      sethighlightedPlayer("");
-      return;
-    }
-
-    sethighlightedPlayer(player.name);
   }
 
   function getPlayer(player?: Player) {
@@ -46,7 +40,9 @@ export const Matches = ({ updated, pageupdated }: Props) => {
     classstring += " py-2 px-4";
     return (
       <div className={classstring}>
-        <button onClick={() => highlightPlayer(player)}>{player.name}</button>
+        <button onClick={() => highlightPlayer(player.name)}>
+          {player.name}
+        </button>
       </div>
     );
   }

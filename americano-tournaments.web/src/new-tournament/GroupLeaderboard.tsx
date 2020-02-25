@@ -3,11 +3,36 @@ import tournamentState from "./models/tournamentState";
 
 interface Props {
   updated: Date;
+  highlightedPlayer: string;
+  highlightPlayer: Function;
 }
 
-export const GroupLeaderboard = ({ updated }: Props) => {
+export const GroupLeaderboard = ({
+  updated,
+  highlightedPlayer,
+  highlightPlayer
+}: Props) => {
   const tournamentInst = tournamentState.getInstance();
   const leaderboard = tournamentInst.getLeaderboard();
+
+  function getPlayer(playername?: string) {
+    let classstring = "";
+    if (!playername) {
+      return;
+    }
+
+    if (playername === highlightedPlayer) {
+      classstring = "bg-blue-500";
+    }
+    classstring += " py-2 px-4";
+    return (
+      <div className={classstring}>
+        <button onClick={() => highlightPlayer(playername)}>
+          {playername}
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="m-auto max-w-2xl bg-gray-800 text-gray-300 rounded-lg py-8 my-8">
@@ -24,7 +49,7 @@ export const GroupLeaderboard = ({ updated }: Props) => {
           {leaderboard.map((row, index) => {
             return (
               <tr key={index}>
-                <td className="border px-4 py-2">{row.name}</td>
+                <td className="border">{getPlayer(row.name)}</td>
                 <td className="border px-4 py-2">{row.playedGames}</td>
                 <td className="border px-4 py-2">{row.points}</td>
                 <td className="border px-4 py-2">{row.wins}</td>

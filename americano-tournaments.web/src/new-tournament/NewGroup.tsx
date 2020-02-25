@@ -3,14 +3,27 @@ import React, { useState } from "react";
 import tournamentState from "./models/tournamentState";
 import { Matches } from "./Matches";
 import { GroupLeaderboard } from "./GroupLeaderboard";
+import { Player } from "./models/tournament";
 
 export const NewGroup = () => {
   const [updated, setupdated] = useState(new Date());
   const tournamentInst = tournamentState.getInstance();
+  const [highlightedPlayer, sethighlightedPlayer] = useState("");
 
   function stringSplit(stringSplit: string, splitwith: string = "\n") {
     var tmpArray: Array<string> = stringSplit.split("\n");
     return tmpArray;
+  }
+
+  function highlightPlayer(playername: string) {
+    if (!playername) {
+      return;
+    } else if (playername === highlightedPlayer) {
+      sethighlightedPlayer("");
+      return;
+    }
+
+    sethighlightedPlayer(playername);
   }
 
   function handleSubmit(event: any) {
@@ -52,10 +65,19 @@ test8`;
         </form>
       )}
       {tournamentInst.matches.length !== 0 && (
-        <GroupLeaderboard updated={updated}></GroupLeaderboard>
+        <GroupLeaderboard
+          updated={updated}
+          highlightPlayer={highlightPlayer}
+          highlightedPlayer={highlightedPlayer}
+        ></GroupLeaderboard>
       )}
       {tournamentInst.matches.length !== 0 && (
-        <Matches updated={updated} pageupdated={pageupdated}></Matches>
+        <Matches
+          updated={updated}
+          pageupdated={pageupdated}
+          highlightedPlayer={highlightedPlayer}
+          highlightPlayer={highlightPlayer}
+        ></Matches>
       )}
     </div>
   );
