@@ -6,7 +6,7 @@ import "./tailwindcss/tailwind.css";
 
 function App() {
   return (
-    <div>
+    <div className="m-auto page-container">
       <Newtournament></Newtournament>
     </div>
   );

@@ -1,2 +1,3 @@
 americano-tournaments.web/src/styles/tailwind.css
 .netlify/*
+.vscode/launch.json

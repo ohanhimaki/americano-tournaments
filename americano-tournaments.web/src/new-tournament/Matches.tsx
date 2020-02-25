@@ -2,27 +2,35 @@ import React, { useState } from "react";
 import tournamentState from "./models/tournamentState";
 import Match, { Team, Player } from "./models/tournament";
 
-export const Matches = () => {
-  const [updated, setupdated] = useState(new Date());
+interface Props {
+  updated: Date;
+  pageupdated: Function;
+}
+
+export const Matches = ({ updated, pageupdated }: Props) => {
   const [highlightedPlayer, sethighlightedPlayer] = useState("");
 
   const tournamentinst = tournamentState.getInstance();
 
   function addScore(match: Match, team: Team, sumToAdd: number) {
     tournamentinst.updateMatchScore(match, team, sumToAdd);
-    setupdated(new Date());
+    pageupdated();
   }
 
   function changeStatus(match: Match) {
     tournamentinst.updateMatchStatus(match);
 
-    setupdated(new Date());
+    pageupdated();
   }
 
   function highlightPlayer(player?: Player) {
     if (!player) {
       return;
+    } else if (player.name === highlightedPlayer) {
+      sethighlightedPlayer("");
+      return;
     }
+
     sethighlightedPlayer(player.name);
   }
 
@@ -33,7 +41,7 @@ export const Matches = () => {
     }
 
     if (player.name === highlightedPlayer) {
-      classstring = "bg-blue-300";
+      classstring = "bg-blue-500";
     }
     classstring += " py-2 px-4";
     return (
@@ -115,14 +123,14 @@ export const Matches = () => {
     let team2class = team1class;
     if (match.status === 2) {
       if (match.score1 > match.score2) {
-        team1class += " bg-green-500";
-        team2class += " bg-red-500";
+        team1class += " bg-green-700";
+        team2class += " bg-red-700";
       } else if (match.score2 > match.score1) {
-        team2class += " bg-green-500";
-        team1class += " bg-red-500";
+        team2class += " bg-green-700";
+        team1class += " bg-red-700";
       } else {
-        team1class += " bg-yellow-500";
-        team2class += " bg-yellow-500";
+        team1class += " bg-yellow-700";
+        team2class += " bg-yellow-700";
       }
     }
     return (
@@ -134,7 +142,7 @@ export const Matches = () => {
           </div>
         </td>
         <td className="border">
-          <div className={team1class}>
+          <div className={team2class}>
             <div className="text-center">{match.score2}</div>
             {scoreButtons(match, match.team2)}
           </div>
@@ -153,7 +161,7 @@ export const Matches = () => {
   }
 
   return (
-    <div className="">
+    <div className="m-auto max-w-2xl bg-gray-800 text-gray-300 rounded-lg py-8 my-8">
       <table className="table-auto m-auto">
         <thead>
           <tr>

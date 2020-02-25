@@ -5,7 +5,7 @@ import { Matches } from "./Matches";
 import { GroupLeaderboard } from "./GroupLeaderboard";
 
 export const NewGroup = () => {
-  const [teststate, setteststate] = useState(new Date());
+  const [updated, setupdated] = useState(new Date());
   const tournamentInst = tournamentState.getInstance();
 
   function stringSplit(stringSplit: string, splitwith: string = "\n") {
@@ -17,7 +17,11 @@ export const NewGroup = () => {
     event.preventDefault();
     let players = stringSplit(event.target.Names.value);
     tournamentState.createMatches(players);
-    setteststate(new Date());
+    setupdated(new Date());
+  }
+
+  function pageupdated() {
+    setupdated(new Date());
   }
 
   let names = `test1
@@ -48,9 +52,11 @@ test8`;
         </form>
       )}
       {tournamentInst.matches.length !== 0 && (
-        <GroupLeaderboard></GroupLeaderboard>
+        <GroupLeaderboard updated={updated}></GroupLeaderboard>
       )}
-      {tournamentInst.matches.length !== 0 && <Matches></Matches>}
+      {tournamentInst.matches.length !== 0 && (
+        <Matches updated={updated} pageupdated={pageupdated}></Matches>
+      )}
     </div>
   );
 };
