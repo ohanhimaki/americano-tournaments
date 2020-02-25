@@ -1,5 +1,12 @@
 @tailwind base;
 
+html {
+  @apply bg-gray-700;
+  @apply font-sans;
+  min-height: 100vh;
+  @apply overflow-x-hidden;
+}
+
 @tailwind components;
 
 @tailwind utilities;
