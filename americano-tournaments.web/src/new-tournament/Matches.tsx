@@ -37,7 +37,7 @@ export const Matches = ({
     if (player.name === highlightedPlayer) {
       classstring = "bg-palayellow-600";
     }
-    classstring += " py-2 px-4";
+    classstring += " py-2 md:px-4 sm:px-2";
     return (
       <div className={classstring}>
         <button onClick={() => highlightPlayer(player.name)}>
@@ -67,7 +67,7 @@ export const Matches = ({
 
     return (
       <td
-        className="border  border-palayellow-300 px-4 py-2"
+        className="border  border-palayellow-300 md:px-4 sm:px-2 py-2"
         onClick={() => changeStatus(match)}
       >
         <button>{statestring}</button>
@@ -164,23 +164,23 @@ export const Matches = ({
       <table className="table-auto m-auto">
         <thead>
           <tr>
-            <th className="px-4 py-2">Round</th>
-            <th className="px-4 py-2">Match</th>
-            <th className="px-4 py-2">Team 1</th>
-            <th className="px-4 py-2"></th>
-            <th className="px-4 py-2"></th>
-            <th className="px-4 py-2">Team 2</th>
-            <th className="px-4 py-2">Status</th>
+            <th className="md:px-4 sm:px-2 py-2">Round</th>
+            <th className="md:px-4 sm:px-2 py-2">Match</th>
+            <th className="md:px-4 sm:px-2 py-2">Team 1</th>
+            <th className="md:px-4 sm:px-2 py-2"></th>
+            <th className="md:px-4 sm:px-2 py-2"></th>
+            <th className="md:px-4 sm:px-2 py-2">Team 2</th>
+            <th className="md:px-4 sm:px-2 py-2">Status</th>
           </tr>
         </thead>
         <tbody>
           {tournamentinst.matches.map((match: Match, index: number) => {
             return (
               <tr key={index} className={rowStatusClass(match)}>
-                <td className="border  border-palayellow-300 px-4 py-2">
+                <td className="border  border-palayellow-300 md:px-4 sm:px-2 py-2">
                   {match.roundno}
                 </td>
-                <td className="border  border-palayellow-300 px-4 py-2">
+                <td className="border  border-palayellow-300 md:px-4 sm:px-2 py-2">
                   {match.matchno}
                 </td>
                 <td className="border  border-palayellow-300">

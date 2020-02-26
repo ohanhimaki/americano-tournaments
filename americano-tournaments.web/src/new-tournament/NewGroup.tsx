@@ -99,7 +99,7 @@ test8`;
         </div>
       )}
       {tournamentInst.matches.length !== 0 && (
-        <div className="xl:w-4/12 xl:order-2 p-8 flex-initial">
+        <div className="xl:w-4/12 w-full xl:order-2 px-8 flex-initial">
           <GroupLeaderboard
             updated={updated}
             highlightPlayer={highlightPlayer}
@@ -108,7 +108,7 @@ test8`;
         </div>
       )}
       {tournamentInst.matches.length !== 0 && (
-        <div className="xl:w-5/12 xl:order-1 p-8">
+        <div className="xl:w-5/12 w-full xl:order-1 px-8">
           <Matches
             updated={updated}
             pageupdated={pageupdated}
