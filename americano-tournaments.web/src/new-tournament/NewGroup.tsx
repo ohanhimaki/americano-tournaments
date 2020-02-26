@@ -46,9 +46,9 @@ test6
 test7
 test8`;
   return (
-    <div className=" m-auto items-center">
+    <div className=" m-auto w-full flex flex-row flex-wrap justify-center items-start">
       {tournamentInst.matches.length === 0 && (
-        <div className=" m-auto max-w-2xl bg-gray-800 text-gray-300 rounded-lg py-8 my-8">
+        <div className=" m-auto bg-gray-800 text-gray-300 rounded-lg py-8 my-8 w-2/5">
           <form
             action=""
             onSubmit={handleSubmit}
@@ -99,19 +99,23 @@ test8`;
         </div>
       )}
       {tournamentInst.matches.length !== 0 && (
-        <GroupLeaderboard
-          updated={updated}
-          highlightPlayer={highlightPlayer}
-          highlightedPlayer={highlightedPlayer}
-        ></GroupLeaderboard>
+        <div className="xl:w-4/12 xl:order-2 p-8 flex-initial">
+          <GroupLeaderboard
+            updated={updated}
+            highlightPlayer={highlightPlayer}
+            highlightedPlayer={highlightedPlayer}
+          ></GroupLeaderboard>
+        </div>
       )}
       {tournamentInst.matches.length !== 0 && (
-        <Matches
-          updated={updated}
-          pageupdated={pageupdated}
-          highlightedPlayer={highlightedPlayer}
-          highlightPlayer={highlightPlayer}
-        ></Matches>
+        <div className="xl:w-5/12 xl:order-1 p-8">
+          <Matches
+            updated={updated}
+            pageupdated={pageupdated}
+            highlightedPlayer={highlightedPlayer}
+            highlightPlayer={highlightPlayer}
+          ></Matches>
+        </div>
       )}
     </div>
   );
