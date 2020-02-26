@@ -35,7 +35,7 @@ export const Matches = ({
     }
 
     if (player.name === highlightedPlayer) {
-      classstring = "bg-blue-500";
+      classstring = "bg-palayellow-600";
     }
     classstring += " py-2 px-4";
     return (
@@ -66,7 +66,10 @@ export const Matches = ({
     }
 
     return (
-      <td className="border px-4 py-2" onClick={() => changeStatus(match)}>
+      <td
+        className="border  border-palayellow-300 px-4 py-2"
+        onClick={() => changeStatus(match)}
+      >
         <button>{statestring}</button>
       </td>
     );
@@ -79,31 +82,31 @@ export const Matches = ({
     return (
       <div className="flex-initial self-auto">
         <button
-          className="border-black bg-gray-700 rounded-t-md "
+          className="border-palayellow-300 bg-gray-700 rounded-t-md "
           onClick={() => addScore(match, team, 1)}
         >
           1
         </button>
         <button
-          className="border-black bg-gray-700 rounded-t-md "
+          className="border-palayellow-300 bg-gray-700 rounded-t-md "
           onClick={() => addScore(match, team, 2)}
         >
           2
         </button>
         <button
-          className="border-black bg-gray-700 rounded-t-md "
+          className="border-palayellow-300 bg-gray-700 rounded-t-md "
           onClick={() => addScore(match, team, 3)}
         >
           3
         </button>
         <button
-          className="border-black bg-gray-700 rounded-t-md "
+          className="border-palayellow-300 bg-gray-700 rounded-t-md "
           onClick={() => addScore(match, team, 4)}
         >
           4
         </button>
         <button
-          className="border-black bg-gray-700 rounded-t-md "
+          className="border-palayellow-300 bg-gray-700 rounded-t-md "
           onClick={() => addScore(match, team, -1)}
         >
           {" "}
@@ -131,13 +134,13 @@ export const Matches = ({
     }
     return (
       <>
-        <td className="border">
+        <td className="border  border-palayellow-300">
           <div className={team1class}>
             <div className="text-center flex-auto ">{match.score1}</div>
             {scoreButtons(match, match.team1)}
           </div>
         </td>
-        <td className="border">
+        <td className="border  border-palayellow-300">
           <div className={team2class}>
             <div className="text-center">{match.score2}</div>
             {scoreButtons(match, match.team2)}
@@ -174,14 +177,18 @@ export const Matches = ({
           {tournamentinst.matches.map((match: Match, index: number) => {
             return (
               <tr key={index} className={rowStatusClass(match)}>
-                <td className="border px-4 py-2">{match.roundno}</td>
-                <td className="border px-4 py-2">{match.matchno}</td>
-                <td className="border">
+                <td className="border  border-palayellow-300 px-4 py-2">
+                  {match.roundno}
+                </td>
+                <td className="border  border-palayellow-300 px-4 py-2">
+                  {match.matchno}
+                </td>
+                <td className="border  border-palayellow-300">
                   {getPlayer(match.team1.players[0])}
                   {getPlayer(match.team1.players[1])}
                 </td>
                 {getScores(match)}
-                <td className="border">
+                <td className="border  border-palayellow-300">
                   {getPlayer(match.team2.players[0])}
                   {getPlayer(match.team2.players[1])}
                 </td>

@@ -22,7 +22,7 @@ export const GroupLeaderboard = ({
     }
 
     if (playername === highlightedPlayer) {
-      classstring = "bg-blue-500";
+      classstring = "bg-palayellow-600";
     }
     classstring += " py-2 px-4";
     return (
@@ -49,10 +49,18 @@ export const GroupLeaderboard = ({
           {leaderboard.map((row, index) => {
             return (
               <tr key={index}>
-                <td className="border">{getPlayer(row.name)}</td>
-                <td className="border px-4 py-2">{row.playedGames}</td>
-                <td className="border px-4 py-2">{row.points}</td>
-                <td className="border px-4 py-2">{row.wins}</td>
+                <td className="border border-palayellow-300">
+                  {getPlayer(row.name)}
+                </td>
+                <td className="border border-palayellow-300 px-4 py-2">
+                  {row.playedGames}
+                </td>
+                <td className="border border-palayellow-300 px-4 py-2">
+                  {row.points}
+                </td>
+                <td className="border border-palayellow-300 px-4 py-2">
+                  {row.wins}
+                </td>
               </tr>
             );
           })}
