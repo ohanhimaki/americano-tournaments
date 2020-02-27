@@ -11,8 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+/* 
 .page-container {
   @apply relative;
   @apply min-h-screen;
+} */
+
+.banner-title {
+  text-shadow: 3px 3px #34350d;
 }

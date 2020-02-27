@@ -152,7 +152,7 @@ export const Matches = ({
   function rowStatusClass(match: Match) {
     let rowClass = "";
     if (match.status === 1) {
-      rowClass = "bg-green-600";
+      rowClass = "bg-green-800";
     } else if (match.status === 2) {
       rowClass = "";
     }
