@@ -46,20 +46,20 @@ test6
 test7
 test8`;
   return (
-    <div className=" m-auto w-full flex flex-row flex-wrap justify-center items-start">
+    <div className="m-auto w-full flex flex-row flex-wrap justify-center items-start">
       {tournamentInst.matches.length === 0 && (
-        <div className=" m-auto bg-gray-800 text-gray-300 rounded-lg py-8 my-8 w-2/5">
+        <div className=" m-auto bg-gray-800 text-gray-300 rounded-lg py-8 my-8 xl:w-6/12 md:w-8/12 w-10/12">
           <form
             action=""
             onSubmit={handleSubmit}
             className="w-full max-w-md m-auto "
           >
             <div className="md:flex pb-2">
-              <div className="md:w-1/3 text-right mr-3">
+              <div className="md:w-1/3 md:text-right mr-3">
                 <label htmlFor="">Names:</label>
               </div>
               <textarea
-                className="md:w-2/3 bg-gray-800 border border-palayellow-300 p-1 text-gray-200 rounded-sm"
+                className="md:w-2/3 w-full bg-gray-800 border border-palayellow-300 p-1 text-gray-200 rounded-sm"
                 name="Names"
                 defaultValue={names}
                 rows={8}
@@ -67,24 +67,24 @@ test8`;
             </div>
 
             <div className="md:flex pb-2">
-              <label className="md:w-1/3 text-right mr-3" htmlFor="">
+              <label className="md:w-1/3 md:text-right mr-3" htmlFor="">
                 Points:
               </label>
               <input
                 type="text"
                 name="points"
-                className="md:w-2/3 bg-gray-800 border border-palayellow-300 p-1 text-gray-200 rounded-sm"
+                className="md:w-2/3 w-full bg-gray-800 border border-palayellow-300 p-1 text-gray-200 rounded-sm"
               ></input>
             </div>
 
             <div className="md:flex pb-2">
-              <label className="md:w-1/3 text-right mr-3" htmlFor="">
+              <label className="md:w-1/3 md:text-right mr-3" htmlFor="">
                 StartTime:
               </label>
               <input
                 type="datetime-local"
                 name="startTime"
-                className="md:w-2/3 bg-gray-800 border border-palayellow-300 p-1 text-gray-200 rounded-sm"
+                className="md:w-2/3 w-full bg-gray-800 border border-palayellow-300 p-1 text-gray-200 rounded-sm"
               ></input>
             </div>
             <div className="md:flex pb-2">
