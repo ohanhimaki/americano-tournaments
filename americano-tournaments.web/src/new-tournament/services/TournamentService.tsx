@@ -5,6 +5,10 @@ export default function connectToWs() {
     console.log(x)
   );
 
+  fetch(process.env.REACT_APP_apiurl + "/tournament/gettest").then(x =>
+    console.log(x)
+  );
+
   const hubConnection = new HubConnectionBuilder()
     .withUrl(process.env.REACT_APP_apiurl + "/ws")
     .build();
