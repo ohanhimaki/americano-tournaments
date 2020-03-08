@@ -13,23 +13,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@master
+      - uses: actions/checkout@master
 
-    - name: Set up .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '3.1.102'
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "3.1.102"
 
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
+      - name: Build with dotnet
+        run: dotnet build --project .\americano-tournaments.api\americano-tournaments.api.csproj --configuration Release
 
-    - name: dotnet publish
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: dotnet publish
+        run: dotnet publish --project .\americano-tournaments.api\americano-tournaments.api.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v1
-      with:
-        app-name: 'americano-tournaments'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_ba6a67616f5c49be97f576ac5509c8d2 }}
-        package: ${{env.DOTNET_ROOT}}/myapp 
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v1
+        with:
+          app-name: "americano-tournaments"
+          slot-name: "production"
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_ba6a67616f5c49be97f576ac5509c8d2 }}
+          package: ${{env.DOTNET_ROOT}}/myapp
