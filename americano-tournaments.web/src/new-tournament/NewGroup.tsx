@@ -14,6 +14,10 @@ export const NewGroup = () => {
     var tmpArray: Array<string> = stringSplit.split("\n");
     return tmpArray;
   }
+  function testApiConnection() {
+    fetch("https://localhost:5001/weatherforecast").then(x => console.log(x));
+  }
+  testApiConnection();
 
   function highlightPlayer(playername: string) {
     if (!playername) {
