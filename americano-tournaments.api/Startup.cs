@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 
+using americano_tournaments.api.Hubs;
 
 namespace americano_tournaments.api
 {
@@ -33,10 +34,16 @@ namespace americano_tournaments.api
                 builder =>
                 {
                     builder.WithOrigins(AllowedOrigins);
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                    builder.AllowCredentials();
+
                 });
             });
 
             services.AddControllersWithViews();
+
+            services.AddSignalR();
 
             // In production, the React files will be served from this directory
         }
@@ -48,17 +55,41 @@ namespace americano_tournaments.api
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseWebSockets();
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors(MyAllowSpecificOrigins);
+
+            var webSocketOptions = new WebSocketOptions()
+            {
+                // KeepAliveInterval = TimeSpan.FromSeconds(120),
+                ReceiveBufferSize = 4 * 1024
+            };
+
+
+
+
+            // foreach (var origin in AllowedOrigins)
+            // {
+            //     webSocketOptions.AllowedOrigins.Add(origin);
+            // }
+
+            // // webSocketOptions.AllowedOrigins.Add("http://localhost:3000/");
+
+            app.UseWebSockets(webSocketOptions);
+
+            // app.UseSignalR(routes =>
+            // {
+            //     routes.MapHub<WebSocketTestHub>("/ws");
+            // });
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+
+                endpoints.MapHub<WebSocketTestHub>("/ws");
             });
 
 

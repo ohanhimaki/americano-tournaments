@@ -5,6 +5,8 @@ import { Matches } from "./Matches";
 import { GroupLeaderboard } from "./GroupLeaderboard";
 import { Player } from "./models/tournament";
 
+import { HubConnection, HubConnectionBuilder } from "@aspnet/signalr";
+
 export const NewGroup = () => {
   const [updated, setupdated] = useState(new Date());
   const tournamentInst = tournamentState.getInstance();
@@ -18,7 +20,23 @@ export const NewGroup = () => {
     fetch(process.env.REACT_APP_apiurl + "/weatherforecast").then(x =>
       console.log(x)
     );
+
+    const hubConnection = new HubConnectionBuilder()
+      .withUrl(process.env.REACT_APP_apiurl + "/ws")
+      .build();
+    hubConnection
+      .start()
+      .then(() => console.log("Connection started!"))
+      .catch(err => console.log(err));
+
+    hubConnection.on("sendToAll", (type: string, payload: string) => {
+      console.log({ severity: type, summary: payload });
+    });
+    setTimeout(() => {
+      hubConnection.invoke("SendMessage", "Olli", "moi");
+    }, 3000);
   }
+
   testApiConnection();
 
   function highlightPlayer(playername: string) {
