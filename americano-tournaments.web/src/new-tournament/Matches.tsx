@@ -75,44 +75,88 @@ export const Matches = ({
     );
   }
 
-  function scoreButtons(match: Match, team: Team) {
+  function scoreButtons(match: Match) {
     if (match.status != 1) {
       return;
     }
     return (
-      <div className="flex-initial self-auto">
-        <button
-          className="border-palayellow-300 bg-gray-700 rounded-t-md "
-          onClick={() => addScore(match, team, 1)}
-        >
-          1
-        </button>
-        <button
-          className="border-palayellow-300 bg-gray-700 rounded-t-md "
-          onClick={() => addScore(match, team, 2)}
-        >
-          2
-        </button>
-        <button
-          className="border-palayellow-300 bg-gray-700 rounded-t-md "
-          onClick={() => addScore(match, team, 3)}
-        >
-          3
-        </button>
-        <button
-          className="border-palayellow-300 bg-gray-700 rounded-t-md "
-          onClick={() => addScore(match, team, 4)}
-        >
-          4
-        </button>
-        <button
-          className="border-palayellow-300 bg-gray-700 rounded-t-md "
-          onClick={() => addScore(match, team, -1)}
-        >
-          {" "}
-          -
-        </button>
-      </div>
+      <tr>
+        <td colSpan={7}>
+          <div className="flex-initial self-auto bg-palayellow-300  flex flex-row justify-between m-auto">
+            <button
+              className="border-palayellow-300 px-4 bg-gray-800   "
+              onClick={() => addScore(match, match.team1, 1)}
+            >
+              1
+            </button>
+
+            <button
+              className="border-palayellow-300 px-4 bg-gray-800   "
+              onClick={() => addScore(match, match.team1, 2)}
+            >
+              2
+            </button>
+
+            <button
+              className="border-palayellow-300 px-4 bg-gray-800   "
+              onClick={() => addScore(match, match.team1, 3)}
+            >
+              3
+            </button>
+
+            <button
+              className="border-palayellow-300 px-4 bg-gray-800   "
+              onClick={() => addScore(match, match.team1, 4)}
+            >
+              4
+            </button>
+
+            <button
+              className="border-palayellow-300 px-4 bg-gray-800   "
+              onClick={() => addScore(match, match.team1, -1)}
+            >
+              {" "}
+              -
+            </button>
+
+            <button
+              className="border-palayellow-300 px-4 bg-gray-800   "
+              onClick={() => addScore(match, match.team2, 1)}
+            >
+              1
+            </button>
+
+            <button
+              className="border-palayellow-300 px-4 bg-gray-800   "
+              onClick={() => addScore(match, match.team2, 2)}
+            >
+              2
+            </button>
+
+            <button
+              className="border-palayellow-300 px-4 bg-gray-800   "
+              onClick={() => addScore(match, match.team2, 3)}
+            >
+              3
+            </button>
+
+            <button
+              className="border-palayellow-300 px-4 bg-gray-800   "
+              onClick={() => addScore(match, match.team2, 4)}
+            >
+              4
+            </button>
+
+            <button
+              className="border-palayellow-300 px-4 bg-gray-800   "
+              onClick={() => addScore(match, match.team2, -1)}
+            >
+              {" "}
+              -
+            </button>
+          </div>
+        </td>
+      </tr>
     );
   }
 
@@ -137,13 +181,13 @@ export const Matches = ({
         <td className="border  border-palayellow-300">
           <div className={team1class}>
             <div className="text-center flex-auto ">{match.score1}</div>
-            {scoreButtons(match, match.team1)}
+            {/* {scoreButtons(match, match.team1)} */}
           </div>
         </td>
         <td className="border  border-palayellow-300">
           <div className={team2class}>
             <div className="text-center">{match.score2}</div>
-            {scoreButtons(match, match.team2)}
+            {/* {scoreButtons(match, match.team2)} */}
           </div>
         </td>
       </>
@@ -176,24 +220,27 @@ export const Matches = ({
         <tbody>
           {tournamentinst.matches.map((match: Match, index: number) => {
             return (
-              <tr key={index} className={rowStatusClass(match)}>
-                <td className="border  border-palayellow-300 md:px-4 sm:px-2 py-2">
-                  {match.roundno}
-                </td>
-                <td className="border  border-palayellow-300 md:px-4 sm:px-2 py-2">
-                  {match.matchno}
-                </td>
-                <td className="border  border-palayellow-300">
-                  {getPlayer(match.team1.players[0])}
-                  {getPlayer(match.team1.players[1])}
-                </td>
-                {getScores(match)}
-                <td className="border  border-palayellow-300">
-                  {getPlayer(match.team2.players[0])}
-                  {getPlayer(match.team2.players[1])}
-                </td>
-                {getMatchState(match)}
-              </tr>
+              <>
+                <tr key={index} className={rowStatusClass(match)}>
+                  <td className="border  border-palayellow-300 md:px-4 sm:px-2 py-2">
+                    {match.roundno}
+                  </td>
+                  <td className="border  border-palayellow-300 md:px-4 sm:px-2 py-2">
+                    {match.matchno}
+                  </td>
+                  <td className="border  border-palayellow-300">
+                    {getPlayer(match.team1.players[0])}
+                    {getPlayer(match.team1.players[1])}
+                  </td>
+                  {getScores(match)}
+                  <td className="border  border-palayellow-300">
+                    {getPlayer(match.team2.players[0])}
+                    {getPlayer(match.team2.players[1])}
+                  </td>
+                  {getMatchState(match)}
+                </tr>
+                {scoreButtons(match)}
+              </>
             );
           })}
         </tbody>

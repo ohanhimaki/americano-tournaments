@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { HubConnection, HubConnectionBuilder } from "@aspnet/signalr";
 
 import tournamentState from "./models/tournamentState";
 import { Matches } from "./Matches";
 import { GroupLeaderboard } from "./GroupLeaderboard";
 import { Player } from "./models/tournament";
+import connectToWs from "./services/TournamentService";
 
 export const NewGroup = () => {
   const [updated, setupdated] = useState(new Date());
@@ -14,6 +16,8 @@ export const NewGroup = () => {
     var tmpArray: Array<string> = stringSplit.split("\n");
     return tmpArray;
   }
+
+  connectToWs();
 
   function highlightPlayer(playername: string) {
     if (!playername) {

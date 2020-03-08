@@ -1,0 +1,14 @@
+version: "3"
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 1433:1433
+    volumes:
+      - /var/opt/mssql
+      - ./sql:/user/src/app
+    working_dir: /user/src/app
+    command: sh -c ' chmod +x ./entrypoint.sh; ./entrypoint.sh & /opt/mssql/bin/sqlservr'
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: salasana12!
