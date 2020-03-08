@@ -9,5 +9,9 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\americano-tournaments.core\americano-tournaments.core.csproj" />
+  </ItemGroup>
+
 
 </Project>
