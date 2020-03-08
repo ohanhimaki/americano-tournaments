@@ -13,11 +13,13 @@ namespace americano_tournaments.api
     public class Startup
     {
         public string[] AllowedOrigins { get; }
+        public static string DbConnectionString { get; private set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             var allowedOrigins = configuration.GetSection("AllowedOrigins");
             AllowedOrigins = allowedOrigins.Value.Split(";");
+            DbConnectionString = configuration.GetConnectionString("DbConnectionString");
         }
 
         public IConfiguration Configuration { get; }
@@ -69,19 +71,9 @@ namespace americano_tournaments.api
 
 
 
-            // foreach (var origin in AllowedOrigins)
-            // {
-            //     webSocketOptions.AllowedOrigins.Add(origin);
-            // }
-
-            // // webSocketOptions.AllowedOrigins.Add("http://localhost:3000/");
 
             app.UseWebSockets(webSocketOptions);
 
-            // app.UseSignalR(routes =>
-            // {
-            //     routes.MapHub<WebSocketTestHub>("/ws");
-            // });
 
             app.UseEndpoints(endpoints =>
             {
