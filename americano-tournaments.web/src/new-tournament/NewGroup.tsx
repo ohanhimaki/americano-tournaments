@@ -15,7 +15,9 @@ export const NewGroup = () => {
     return tmpArray;
   }
   function testApiConnection() {
-    fetch("https://localhost:5001/weatherforecast").then(x => console.log(x));
+    fetch(process.env.REACT_APP_apiurl + "/weatherforecast").then(x =>
+      console.log(x)
+    );
   }
   testApiConnection();
 
