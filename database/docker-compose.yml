@@ -1,14 +1,12 @@
 version: "3"
+
 services:
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+  db:
+    image: postgres
     ports:
-      - 1433:1433
-    volumes:
-      - /var/opt/mssql
-      - ./sql:/user/src/app
-    working_dir: /user/src/app
-    command: sh -c ' chmod +x ./entrypoint.sh; ./entrypoint.sh & /opt/mssql/bin/sqlservr'
+      - "127.0.0.1:5432:5432"
     environment:
-      ACCEPT_EULA: Y
-      SA_PASSWORD: salasana12!
+      PGDATA: /tmp
+    volumes:
+      - ./tablescripts:/docker-entrypoint-initdb.d
+      - ./tmp/data:/var/lib/postgresql/data
