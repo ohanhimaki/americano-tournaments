@@ -90,25 +90,15 @@ export default class tournamentState {
           if (match.score1) {
             points += match.score1;
           }
-          if (
-            match.status === 2 &&
-            match.score1 &&
-            match.score2 &&
-            match.score1 > match.score2
-          ) {
+          if (match.status === 2 && match.score1 > match.score2) {
             wins += 1;
           }
         }
         if (match.team2.players.includes(player)) {
           if (match.score2) {
-            points = +match.score2;
+            points += match.score2;
           }
-          if (
-            match.status === 2 &&
-            match.score1 &&
-            match.score2 &&
-            match.score2 > match.score1
-          ) {
+          if (match.status === 2 && match.score2 > match.score1) {
             wins += 1;
           }
         }
