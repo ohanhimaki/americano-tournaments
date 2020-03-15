@@ -14,13 +14,17 @@ export default function connectToWs() {
     .build();
   hubConnection
     .start()
-    .then(() => console.log("Connection started!"))
+    .then(() => {
+      console.log("Connection started!");
+
+      setTimeout(() => {
+        hubConnection.invoke("SendMessage", "Olli", "moi");
+      }, 3000);
+    })
+
     .catch(err => console.log(err));
 
   hubConnection.on("sendToAll", (type: string, payload: string) => {
     console.log({ severity: type, summary: payload });
   });
-  setTimeout(() => {
-    hubConnection.invoke("SendMessage", "Olli", "moi");
-  }, 3000);
 }
