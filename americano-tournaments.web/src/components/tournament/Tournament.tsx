@@ -1,7 +1,6 @@
 ﻿import {GroupLeaderboard} from "./GroupLeaderboard";
 import {Matches} from "./Matches";
 import React, {useState} from "react";
-import tournamentState from "../../services/tournamentState";
 
 interface Props {
     selectTournament: Function;

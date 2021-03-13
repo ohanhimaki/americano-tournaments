@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import tournamentState from "./../../services/tournamentState";
 
 interface Props {

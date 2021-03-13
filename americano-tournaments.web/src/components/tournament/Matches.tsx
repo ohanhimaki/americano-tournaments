@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import tournamentState from "./../../services/tournamentState";
 import Match, { Team, Player } from "../../models/tournament";
 
@@ -76,7 +76,7 @@ export const Matches = ({
   }
 
   function scoreButtons(match: Match) {
-    if (match.status != 1) {
+    if (match.status !== 1) {
       return;
     }
     return (
