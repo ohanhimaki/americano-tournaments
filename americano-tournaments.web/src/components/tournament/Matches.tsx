@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import tournamentState from "./models/tournamentState";
-import Match, { Team, Player } from "./models/tournament";
+import tournamentState from "./../../services/tournamentState";
+import Match, { Team, Player } from "../../models/tournament";
 
 interface Props {
   updated: Date;
