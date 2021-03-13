@@ -1,21 +1,40 @@
-import Match, { Player, LeaderboardRow, Team } from "./tournament";
+import Match, { Player, LeaderboardRow, Team } from "../models/tournament";
 import generateMatches from "../services/GenerateGroup";
+import LocalStorageService from "../services/LocalStorageService";
 
 export default class tournamentState {
   static myInstance: tournamentState = new tournamentState();
   matches: Match[] = [];
-  players: Player[] = [];
+  Players: Player[] = [];
+  Name: string = "";
+  Created: Date;
+  Edited: Date;
+  PlayersCount: number = 0;
+  Status: number = 0;
+  PlayersCountCalculator() {
+    return this.Players.length;
+  }
+  
+  StatusCalculator() {
+    if (this.matches.filter(x => x.status !== 2).length === 0) return 2
+    if (this.matches.filter(x => x.status != 0).length === 0) return 1
+    return 0;
+  }
 
+  
+  
   static getInstance() {
     return this.myInstance;
   }
 
   static createMatches(
+    name: string = "",
     players?: string[],
     pointsPerServe: number = 4,
     startTime: Date = new Date()
   ) {
     tournamentState.myInstance = new tournamentState(
+        name,
       players,
       pointsPerServe,
       startTime
@@ -23,19 +42,22 @@ export default class tournamentState {
   }
 
   constructor(
+      name: string = "",
     playerNamesArray?: string[],
     pointsPerServe: number = 4,
     startTime: Date = new Date()
   ) {
+    this.Created = new Date();
+    this.Edited = new Date();
     if (playerNamesArray === undefined) {
       return;
     }
-
+this.Name = name;
     playerNamesArray.forEach(name => {
-      this.players.push({ name: name, games: 0 });
+      this.Players.push({ name: name, games: 0 });
     });
 
-    const tmpMatches = generateMatches(this.players);
+    const tmpMatches = generateMatches(this.Players);
 
     tmpMatches.forEach(match => {
       this.matches.push({
@@ -50,7 +72,16 @@ export default class tournamentState {
         startTime: startTime
       });
     });
+    this.PlayersCount = this.PlayersCountCalculator();
+    this.Status = this.StatusCalculator();
+    this.updateEdited()
   }
+  
+  updateEdited() {
+    this.Edited = new Date();
+    this.Status = this.StatusCalculator();
+    UpdateLocalStorage(this);
+  } 
 
   updateMatchScore(match: Match, team: Team, sumToAdd: number) {
     const matchToUpdate = this.matches.find(x => x.matchno === match.matchno);
@@ -62,6 +93,7 @@ export default class tournamentState {
     if (matchToUpdate?.team2 === team) {
       matchToUpdate.score2 += sumToAdd;
     }
+    this.updateEdited()
   }
 
   updateMatchStatus(match: Match) {
@@ -76,17 +108,18 @@ export default class tournamentState {
     } else if (matchToUpdate?.status === 0) {
       matchToUpdate.status = 1;
     }
+    this.updateEdited()
   }
 
   getLeaderboard() {
     let tmpLeaderboard: LeaderboardRow[] = [];
-    this.players.forEach(player => {
+    this.Players.forEach(player => {
       let points = 0;
       let playedGames = 0;
       let wins = 0;
 
       this.matches.forEach(match => {
-        if (match.team1.players.includes(player)) {
+        if (match.team1.players.filter(x => x.name === player.name).length>0) {
           if (match.score1) {
             points += match.score1;
           }
@@ -94,7 +127,7 @@ export default class tournamentState {
             wins += 1;
           }
         }
-        if (match.team2.players.includes(player)) {
+        if (match.team2.players.filter(x => x.name === player.name).length>0) {
           if (match.score2) {
             points += match.score2;
           }
@@ -106,8 +139,8 @@ export default class tournamentState {
 
       this.matches.forEach(match => {
         if (
-          match.team1.players.includes(player) ||
-          match.team2.players.includes(player)
+          match.team1.players.filter(x => x.name === player.name).length>0 ||
+          match.team2.players.filter(x => x.name === player.name).length>0
         ) {
           if (match.status === 2) {
             playedGames += 1;
@@ -132,4 +165,17 @@ export default class tournamentState {
 
     return tmpLeaderboard;
   }
+
+  reloadOldTournament(tournament: tournamentState) {
+    this.Name = tournament.Name;
+    this.Players = tournament.Players;
+    this.matches = tournament.matches;
+    
+  }
+}
+
+
+function UpdateLocalStorage(tournament: tournamentState){
+  var localStorageServicetmp = new LocalStorageService();
+  localStorageServicetmp.UpdateTournament(tournament);
 }
