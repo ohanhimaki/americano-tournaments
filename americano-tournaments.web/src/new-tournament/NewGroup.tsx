@@ -34,12 +34,15 @@ export const NewGroup = () => {
     event.preventDefault();
     let players = stringSplit(event.target.Names.value);
     tournamentState.createMatches(players);
+    console.log(event.target)
     setupdated(new Date());
   }
 
   function pageupdated() {
     setupdated(new Date());
   }
+  let defaultScore = '16';
+  let defaultDateTime = new Date().toDateString();
 
   let names = `test1
 test2
@@ -63,11 +66,11 @@ test8`;
                 <label htmlFor="">Names:</label>
               </div>
               <textarea
-                className="md:w-2/3 w-full bg-gray-800 border border-palayellow-300 p-1 text-gray-200 rounded-sm"
-                name="Names"
-                defaultValue={names}
-                rows={8}
-              ></textarea>
+    className="md:w-2/3 w-full bg-gray-800 border border-palayellow-300 p-1 text-gray-200 rounded-sm"
+    name="Names"
+    defaultValue={names}
+    rows={8}
+    />
             </div>
 
             <div className="md:flex pb-2">
@@ -75,10 +78,11 @@ test8`;
                 Points:
               </label>
               <input
-                type="text"
-                name="points"
-                className="md:w-2/3 w-full bg-gray-800 border border-palayellow-300 p-1 text-gray-200 rounded-sm"
-              ></input>
+    type="text"
+    name="points"
+    defaultValue={defaultScore}
+    className="md:w-2/3 w-full bg-gray-800 border border-palayellow-300 p-1 text-gray-200 rounded-sm"
+    />
             </div>
 
             <div className="md:flex pb-2">
@@ -86,18 +90,19 @@ test8`;
                 StartTime:
               </label>
               <input
-                type="datetime-local"
-                name="startTime"
-                className="md:w-2/3 w-full bg-gray-800 border border-palayellow-300 p-1 text-gray-200 rounded-sm"
-              ></input>
+    type="datetime-local"
+    name="startTime"
+    defaultValue={defaultDateTime}
+    className="md:w-2/3 w-full bg-gray-800 border border-palayellow-300 p-1 text-gray-200 rounded-sm"
+    />
             </div>
             <div className="md:flex pb-2">
-              <div className="md:w-1/3 mr-3"></div>
+              <div className="md:w-1/3 mr-3"/>
               <input
-                type="submit"
-                value="Submit"
-                className="bg-palayellow-300 text-gray-900 px-2 py-1 rounded-md"
-              ></input>
+    type="submit"
+    value="Submit"
+    className="bg-palayellow-300 text-gray-900 px-2 py-1 rounded-md"
+    />
             </div>
           </form>
         </div>
@@ -105,20 +110,20 @@ test8`;
       {tournamentInst.matches.length !== 0 && (
         <div className="xl:w-4/12 w-full xl:order-2 px-8 flex-initial">
           <GroupLeaderboard
-            updated={updated}
-            highlightPlayer={highlightPlayer}
-            highlightedPlayer={highlightedPlayer}
-          ></GroupLeaderboard>
+    updated={updated}
+    highlightPlayer={highlightPlayer}
+    highlightedPlayer={highlightedPlayer}
+    />
         </div>
       )}
       {tournamentInst.matches.length !== 0 && (
         <div className="xl:w-5/12 w-full xl:order-1 px-8">
           <Matches
-            updated={updated}
-            pageupdated={pageupdated}
-            highlightedPlayer={highlightedPlayer}
-            highlightPlayer={highlightPlayer}
-          ></Matches>
+    updated={updated}
+    pageupdated={pageupdated}
+    highlightedPlayer={highlightedPlayer}
+    highlightPlayer={highlightPlayer}
+    />
         </div>
       )}
     </div>
