@@ -12,6 +12,12 @@ export const ExistingTournaments = ({selectTournament}: Props) => {
     var tournament = localStorageServicetmp.GetTournaments();
 
 
+    function createAndSelectTournament(tournament: tournamentState) {
+        const tournamentinst = tournamentState.getInstance();
+        tournamentinst.reloadOldTournament(tournament);
+        selectTournament(tournamentinst);
+    }
+
     return (
         <div className="bg-gray-700">
             <div className="m-auto">
@@ -19,7 +25,7 @@ export const ExistingTournaments = ({selectTournament}: Props) => {
                     <div className=" m-auto bg-gray-800 text-gray-300 rounded-lg py-8 my-8 xl:w-6/12 md:w-8/12 w-10/12">
                         {tournament.map((tournament: tournamentState, index: number) => {
                             return (
-                                <div>
+                                <div onClick={() => createAndSelectTournament(tournament)}>
                                     {tournament.name}
                                 </div>
                             );

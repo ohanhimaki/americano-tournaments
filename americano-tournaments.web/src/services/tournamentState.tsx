@@ -93,7 +93,7 @@ this.name = name;
       let wins = 0;
 
       this.matches.forEach(match => {
-        if (match.team1.players.includes(player)) {
+        if (match.team1.players.filter(x => x.name === player.name).length>0) {
           if (match.score1) {
             points += match.score1;
           }
@@ -101,7 +101,7 @@ this.name = name;
             wins += 1;
           }
         }
-        if (match.team2.players.includes(player)) {
+        if (match.team2.players.filter(x => x.name === player.name).length>0) {
           if (match.score2) {
             points += match.score2;
           }
@@ -113,8 +113,8 @@ this.name = name;
 
       this.matches.forEach(match => {
         if (
-          match.team1.players.includes(player) ||
-          match.team2.players.includes(player)
+          match.team1.players.filter(x => x.name === player.name).length>0 ||
+          match.team2.players.filter(x => x.name === player.name).length>0
         ) {
           if (match.status === 2) {
             playedGames += 1;
@@ -140,6 +140,13 @@ this.name = name;
     UpdateLocalStorage(this);
 
     return tmpLeaderboard;
+  }
+
+  reloadOldTournament(tournament: tournamentState) {
+    this.name = tournament.name;
+    this.players = tournament.players;
+    this.matches = tournament.matches;
+    
   }
 }
 
