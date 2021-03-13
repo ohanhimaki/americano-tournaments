@@ -80,6 +80,7 @@ this.Name = name;
   updateEdited() {
     this.Edited = new Date();
     this.Status = this.StatusCalculator();
+    UpdateLocalStorage(this);
   } 
 
   updateMatchScore(match: Match, team: Team, sumToAdd: number) {
@@ -108,7 +109,6 @@ this.Name = name;
       matchToUpdate.status = 1;
     }
     this.updateEdited()
-    UpdateLocalStorage(this);
   }
 
   getLeaderboard() {
