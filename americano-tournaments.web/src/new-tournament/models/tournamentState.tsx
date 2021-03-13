@@ -1,21 +1,25 @@
 import Match, { Player, LeaderboardRow, Team } from "./tournament";
 import generateMatches from "../services/GenerateGroup";
+import LocalStorageService from "../services/LocalStorageService";
 
 export default class tournamentState {
   static myInstance: tournamentState = new tournamentState();
   matches: Match[] = [];
   players: Player[] = [];
+  name: string = "";
 
   static getInstance() {
     return this.myInstance;
   }
 
   static createMatches(
+    name: string = "",
     players?: string[],
     pointsPerServe: number = 4,
     startTime: Date = new Date()
   ) {
     tournamentState.myInstance = new tournamentState(
+        name,
       players,
       pointsPerServe,
       startTime
@@ -23,6 +27,7 @@ export default class tournamentState {
   }
 
   constructor(
+      name: string = "",
     playerNamesArray?: string[],
     pointsPerServe: number = 4,
     startTime: Date = new Date()
@@ -30,7 +35,7 @@ export default class tournamentState {
     if (playerNamesArray === undefined) {
       return;
     }
-
+this.name = name;
     playerNamesArray.forEach(name => {
       this.players.push({ name: name, games: 0 });
     });
@@ -129,7 +134,16 @@ export default class tournamentState {
         return b.wins - a.wins;
       }
     });
+    console.log('tulee tänne')
+    UpdateLocalStorage(this);
 
     return tmpLeaderboard;
   }
+}
+
+
+function UpdateLocalStorage(tournament: tournamentState){
+  var tournaments = [tournament]
+  var localStorageServicetmp = new LocalStorageService();
+  localStorageServicetmp.SetTournaments(tournaments)
 }

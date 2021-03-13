@@ -1,18 +1,34 @@
-import React from "react";
+import React, {useState} from "react";
 import "./App.css";
-import { Newtournament } from "./new-tournament/Newtournament";
 
 import "./tailwindcss/tailwind.css";
+import {TournamentSelector} from "./TournamentSelector";
+import {Tournament} from "./Tournament";
+import tournamentState from "./new-tournament/models/tournamentState";
+
 
 function App() {
-  return (
+    const [selectedTournament, setSelectedTournament] = useState<tournamentState>();
+
+    function selectTournament(tournament?:tournamentState) {
+        setSelectedTournament(tournament);
+    }
+    return (
     <div className="m-auto page-container">
       <div className="w-screen flex m-auto justify-center">
         <h1 className="m-auto md:text-6xl text-3xl font-bold font-black mx-10 banner-title">
           Padel Tournament Generator
         </h1>
       </div>
-      <Newtournament></Newtournament>
+        {selectedTournament === undefined && (
+            <TournamentSelector
+            selectTournament={selectTournament}></TournamentSelector>
+            
+        )}
+
+        {selectedTournament  && (
+            <Tournament></Tournament>
+        )}
     </div>
   );
 }
