@@ -145,7 +145,6 @@ this.name = name;
 
 
 function UpdateLocalStorage(tournament: tournamentState){
-  var tournaments = [tournament]
   var localStorageServicetmp = new LocalStorageService();
-  localStorageServicetmp.SetTournaments(tournaments)
+  localStorageServicetmp.UpdateTournament(tournament);
 }
