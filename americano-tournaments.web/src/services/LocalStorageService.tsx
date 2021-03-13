@@ -28,4 +28,15 @@ export default  class LocalStorageService {
         this.SetTournaments(currentTournaments);
     }
 
+     DeleteTournament(tournament: tournamentState) {
+        let currentTournaments: tournamentState[] = [];
+        var currentTournamentsTmp = this.GetTournaments();
+        if(currentTournamentsTmp !== undefined){
+            currentTournaments = currentTournaments.concat(currentTournamentsTmp)
+        }
+
+        currentTournaments = currentTournaments.filter(x => x.Name != tournament.Name)
+        this.SetTournaments(currentTournaments);
+
+    }
 }

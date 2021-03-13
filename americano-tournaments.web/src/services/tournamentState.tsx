@@ -17,7 +17,7 @@ export default class tournamentState {
   
   StatusCalculator() {
     if (this.matches.filter(x => x.status !== 2).length === 0) return 2
-    if (this.matches.filter(x => x.status !== 0).length === 0) return 1
+    if (this.matches.filter(x => x.status != 0).length === 0) return 1
     return 0;
   }
 

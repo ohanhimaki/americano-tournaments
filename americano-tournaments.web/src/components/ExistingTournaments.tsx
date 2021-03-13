@@ -1,4 +1,4 @@
-﻿import React from "react";
+﻿import React, {useState} from "react";
 import LocalStorageService from "../services/LocalStorageService";
 import Match from "../models/tournament";
 import tournamentState from "../services/tournamentState";
@@ -8,14 +8,23 @@ interface Props {
 }
 
 export const ExistingTournaments = ({selectTournament}: Props) => {
+
     var localStorageServicetmp = new LocalStorageService();
-    var tournament = localStorageServicetmp.GetTournaments();
+    const [tournaments, setTournaments] = useState<tournamentState[]>(localStorageServicetmp.GetTournaments());
 
 
     function createAndSelectTournament(tournament: tournamentState) {
         const tournamentinst = tournamentState.getInstance();
         tournamentinst.reloadOldTournament(tournament);
         selectTournament(tournamentinst);
+    }
+
+    function deleteTournament(tournament: tournamentState, e: React.MouseEvent<HTMLElement>) {
+        e.stopPropagation();
+        if(!window.confirm('Haluatko varmasti poistaa tämän turnauksen')) return;
+        var localStorageServicetmp =new LocalStorageService();
+        setTournaments(tournaments.filter(x => x !== tournament))
+        localStorageServicetmp.DeleteTournament(tournament);
     }
 
     return (
@@ -30,12 +39,11 @@ export const ExistingTournaments = ({selectTournament}: Props) => {
                                 <th className="md:px-4 sm:px-2 py-2">Created</th>
                                 <th className="md:px-4 sm:px-2 py-2">Edited</th>
                                 <th className="md:px-4 sm:px-2 py-2">Players</th>
-                                <th className="md:px-4 sm:px-2 py-2">Status</th>
                                 <th className="md:px-4 sm:px-2 py-2">Delete</th>
                             </tr>
                             </thead>
                             <tbody>
-                            { tournament != undefined && tournament.map((tournament: tournamentState, index: number) => {
+                            { tournaments != undefined && tournaments.map((tournament: tournamentState, index: number) => {
                                 return (
                                     <>
                                         <tr key={index} onClick={() => createAndSelectTournament(tournament)}>
@@ -48,14 +56,18 @@ export const ExistingTournaments = ({selectTournament}: Props) => {
                                             <td className="border  border-palayellow-300">
                                                 {tournament.Edited}
                                             </td>
-                                            <td className="border  border-palayellow-300">
+                                            <td className="border  border-palayellow-300 text-right">
                                                 {tournament.PlayersCount}
                                             </td>
                                             <td className="border  border-palayellow-300">
-                                                {tournament.Status}
-                                            </td>
-                                            <td className="border  border-palayellow-300">
-                                                {/*poista nappula*/}
+                                                <div className="md:flex pb-2">
+                                                    <div className="md:w-1/3 mr-3"/>
+                                                    <button
+                                                        onClick={(e) => deleteTournament(tournament, e)}
+                                                        className="bg-palayellow-300 text-gray-900 px-2 py-1 rounded-md"
+                                                    >Delete
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
                                     </>
