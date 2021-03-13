@@ -5,8 +5,21 @@ import LocalStorageService from "../services/LocalStorageService";
 export default class tournamentState {
   static myInstance: tournamentState = new tournamentState();
   matches: Match[] = [];
-  players: Player[] = [];
-  name: string = "";
+  Players: Player[] = [];
+  Name: string = "";
+  Created: Date;
+  Edited: Date;
+  PlayersCount: number = 0;
+  Status: number = 0;
+  PlayersCountCalculator() {
+    return this.Players.length;
+  }
+  
+  StatusCalculator() {
+    if (this.matches.filter(x => x.status !== 2).length === 0) return 2
+    if (this.matches.filter(x => x.status !== 0).length === 0) return 1
+    return 0;
+  }
 
   
   
@@ -34,15 +47,17 @@ export default class tournamentState {
     pointsPerServe: number = 4,
     startTime: Date = new Date()
   ) {
+    this.Created = new Date();
+    this.Edited = new Date();
     if (playerNamesArray === undefined) {
       return;
     }
-this.name = name;
+this.Name = name;
     playerNamesArray.forEach(name => {
-      this.players.push({ name: name, games: 0 });
+      this.Players.push({ name: name, games: 0 });
     });
 
-    const tmpMatches = generateMatches(this.players);
+    const tmpMatches = generateMatches(this.Players);
 
     tmpMatches.forEach(match => {
       this.matches.push({
@@ -57,7 +72,15 @@ this.name = name;
         startTime: startTime
       });
     });
+    this.PlayersCount = this.PlayersCountCalculator();
+    this.Status = this.StatusCalculator();
+    this.updateEdited()
   }
+  
+  updateEdited() {
+    this.Edited = new Date();
+    this.Status = this.StatusCalculator();
+  } 
 
   updateMatchScore(match: Match, team: Team, sumToAdd: number) {
     const matchToUpdate = this.matches.find(x => x.matchno === match.matchno);
@@ -69,6 +92,7 @@ this.name = name;
     if (matchToUpdate?.team2 === team) {
       matchToUpdate.score2 += sumToAdd;
     }
+    this.updateEdited()
   }
 
   updateMatchStatus(match: Match) {
@@ -83,11 +107,13 @@ this.name = name;
     } else if (matchToUpdate?.status === 0) {
       matchToUpdate.status = 1;
     }
+    this.updateEdited()
+    UpdateLocalStorage(this);
   }
 
   getLeaderboard() {
     let tmpLeaderboard: LeaderboardRow[] = [];
-    this.players.forEach(player => {
+    this.Players.forEach(player => {
       let points = 0;
       let playedGames = 0;
       let wins = 0;
@@ -136,14 +162,13 @@ this.name = name;
         return b.wins - a.wins;
       }
     });
-    UpdateLocalStorage(this);
 
     return tmpLeaderboard;
   }
 
   reloadOldTournament(tournament: tournamentState) {
-    this.name = tournament.name;
-    this.players = tournament.players;
+    this.Name = tournament.Name;
+    this.Players = tournament.Players;
     this.matches = tournament.matches;
     
   }

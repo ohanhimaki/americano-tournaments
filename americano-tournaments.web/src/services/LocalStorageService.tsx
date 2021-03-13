@@ -17,8 +17,13 @@ export default  class LocalStorageService {
         localStorage.setItem('tournaments', JSON.stringify(tournaments));
     }
     UpdateTournament(tournament:tournamentState) {
-        let currentTournaments: tournamentState[] = this.GetTournaments();
-        currentTournaments = currentTournaments.filter(x => x.name != tournament.name)
+        let currentTournaments: tournamentState[] = [];
+         var currentTournamentsTmp = this.GetTournaments();
+        if(currentTournamentsTmp !== undefined){
+            currentTournaments = currentTournaments.concat(currentTournamentsTmp)
+        }
+            
+        currentTournaments = currentTournaments.filter(x => x.Name != tournament.Name)
         currentTournaments = currentTournaments.concat([tournament]);
         this.SetTournaments(currentTournaments);
     }
