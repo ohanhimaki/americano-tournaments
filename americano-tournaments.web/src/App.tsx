@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import "./App.css";
 
 import "./tailwindcss/tailwind.css";
-import {TournamentSelector} from "./TournamentSelector";
-import {Tournament} from "./Tournament";
-import tournamentState from "./new-tournament/models/tournamentState";
+import {TournamentSelector} from "./components/TournamentSelector";
+import {Tournament} from "./components/tournament/Tournament";
+import tournamentState from "./services/tournamentState";
 
 
 function App() {

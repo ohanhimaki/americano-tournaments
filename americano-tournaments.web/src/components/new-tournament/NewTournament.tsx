@@ -1,5 +1,4 @@
 import React from "react";
-import {NewGroup} from "./NewGroup";
 import {NewTournamentForm} from "./NewTournamentForm";
 
 

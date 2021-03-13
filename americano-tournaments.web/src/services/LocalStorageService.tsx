@@ -1,5 +1,5 @@
 import React from 'react';
-import tournamentState from "../models/tournamentState";
+import tournamentState from "../services/tournamentState";
 
 export default  class LocalStorageService {
     constructor() {

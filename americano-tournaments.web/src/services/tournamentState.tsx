@@ -1,4 +1,4 @@
-import Match, { Player, LeaderboardRow, Team } from "./tournament";
+import Match, { Player, LeaderboardRow, Team } from "../models/tournament";
 import generateMatches from "../services/GenerateGroup";
 import LocalStorageService from "../services/LocalStorageService";
 
@@ -8,6 +8,8 @@ export default class tournamentState {
   players: Player[] = [];
   name: string = "";
 
+  
+  
   static getInstance() {
     return this.myInstance;
   }

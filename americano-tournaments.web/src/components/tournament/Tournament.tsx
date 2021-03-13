@@ -1,5 +1,5 @@
-﻿import {GroupLeaderboard} from "./new-tournament/GroupLeaderboard";
-import {Matches} from "./new-tournament/Matches";
+﻿import {GroupLeaderboard} from "./GroupLeaderboard";
+import {Matches} from "./Matches";
 import React, {useState} from "react";
 
 export function Tournament() {
