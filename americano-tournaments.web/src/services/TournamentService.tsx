@@ -1,4 +1,4 @@
-import { HubConnection, HubConnectionBuilder } from "@aspnet/signalr";
+import {  HubConnectionBuilder } from "@aspnet/signalr";
 
 export default function connectToWs() {
   fetch(process.env.REACT_APP_apiurl + "/weatherforecast").then(x =>
