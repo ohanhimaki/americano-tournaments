@@ -27,7 +27,9 @@ function App() {
         )}
 
         {selectedTournament  && (
-            <Tournament></Tournament>
+            <Tournament
+            selectTournament={selectTournament}
+            ></Tournament>
         )}
     </div>
   );

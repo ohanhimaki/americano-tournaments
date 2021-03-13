@@ -1,8 +1,12 @@
 ﻿import {GroupLeaderboard} from "./GroupLeaderboard";
 import {Matches} from "./Matches";
 import React, {useState} from "react";
+import tournamentState from "../../services/tournamentState";
 
-export function Tournament() {
+interface Props {
+    selectTournament: Function;
+}
+export function Tournament({selectTournament}:Props) {
 
     const [highlightedPlayer, sethighlightedPlayer] = useState("");
     const [updated, setupdated] = useState(new Date());
@@ -25,7 +29,9 @@ export function Tournament() {
     return(
         
     <div className="m-auto w-full flex flex-row flex-wrap justify-center items-start">
-
+<button
+    onClick={() => selectTournament(undefined)}
+>test</button>
         <div className="xl:w-4/12 w-full xl:order-2 px-8 flex-initial">
             <GroupLeaderboard
                 updated={updated}
