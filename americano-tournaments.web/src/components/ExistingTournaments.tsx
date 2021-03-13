@@ -1,6 +1,5 @@
 ﻿import React, {useState} from "react";
 import LocalStorageService from "../services/LocalStorageService";
-import Match from "../models/tournament";
 import tournamentState from "../services/tournamentState";
 
 interface Props {
@@ -43,7 +42,7 @@ export const ExistingTournaments = ({selectTournament}: Props) => {
                             </tr>
                             </thead>
                             <tbody>
-                            { tournaments != undefined && tournaments.map((tournament: tournamentState, index: number) => {
+                            { tournaments !== undefined && tournaments.map((tournament: tournamentState, index: number) => {
                                 return (
                                     <>
                                         <tr key={index} onClick={() => createAndSelectTournament(tournament)}>

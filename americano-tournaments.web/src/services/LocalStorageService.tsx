@@ -1,9 +1,6 @@
-import React from 'react';
 import tournamentState from "../services/tournamentState";
 
 export default  class LocalStorageService {
-    constructor() {
-    }
      GetTournaments() {
          var tournamentJson = localStorage.getItem('tournaments');
         if (tournamentJson){
@@ -23,7 +20,7 @@ export default  class LocalStorageService {
             currentTournaments = currentTournaments.concat(currentTournamentsTmp)
         }
             
-        currentTournaments = currentTournaments.filter(x => x.Name != tournament.Name)
+        currentTournaments = currentTournaments.filter(x => x.Name !== tournament.Name)
         currentTournaments = currentTournaments.concat([tournament]);
         this.SetTournaments(currentTournaments);
     }
@@ -35,7 +32,7 @@ export default  class LocalStorageService {
             currentTournaments = currentTournaments.concat(currentTournamentsTmp)
         }
 
-        currentTournaments = currentTournaments.filter(x => x.Name != tournament.Name)
+        currentTournaments = currentTournaments.filter(x => x.Name !== tournament.Name)
         this.SetTournaments(currentTournaments);
 
     }

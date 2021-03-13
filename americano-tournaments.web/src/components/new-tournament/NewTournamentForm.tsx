@@ -9,7 +9,7 @@ export function NewTournamentForm({selectTournament}:Props) {
         const tmpArray: Array<string> = stringSplit.split(splitWith);
         return tmpArray;
     }
-    let defaultName = new Date().toDateString() + ' ' + 'turnaus';
+    let defaultName = `${new Date().toDateString()} turnaus`;
     let defaultScore = '16';
     let defaultDateTime = new Date().toDateString();
 
