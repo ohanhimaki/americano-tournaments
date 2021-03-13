@@ -136,7 +136,6 @@ this.name = name;
         return b.wins - a.wins;
       }
     });
-    console.log('tulee tänne')
     UpdateLocalStorage(this);
 
     return tmpLeaderboard;

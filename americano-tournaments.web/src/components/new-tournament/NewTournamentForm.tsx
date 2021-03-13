@@ -27,7 +27,6 @@ test8`;
         let name = event.target.tournamentName.value;
         tournamentState.createMatches(name, players);
         selectTournament(tournamentState.getInstance());
-        console.log(event.target)
     }
     return(
     <div className="m-auto w-full flex flex-row flex-wrap justify-center items-start">
