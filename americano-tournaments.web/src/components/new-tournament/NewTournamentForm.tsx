@@ -28,6 +28,8 @@ test8`;
         tournamentState.createMatches(name, players);
         selectTournament(tournamentState.getInstance());
     }
+
+
     return(
     <div className="m-auto w-full flex flex-row flex-wrap justify-center items-start">
             <div className=" m-auto bg-gray-800 text-gray-300 rounded-lg py-8 my-8 xl:w-6/12 md:w-8/12 w-10/12">

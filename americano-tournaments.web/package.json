@@ -17,6 +17,7 @@
     "postcss-purgecss": "^2.0.3",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.4",
     "tailwindcss": "^1.9.6",
     "typescript": "^3.9.9"
@@ -44,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^13.13.46"
+    "@types/node": "^13.13.46",
+    "@types/react-router-dom": "^5.1.7"
   }
 }

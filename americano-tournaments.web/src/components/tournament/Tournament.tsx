@@ -5,6 +5,8 @@ import React, {useState} from "react";
 interface Props {
     selectTournament: Function;
 }
+
+
 export function Tournament({selectTournament}:Props) {
 
     const [highlightedPlayer, sethighlightedPlayer] = useState("");

@@ -170,6 +170,7 @@ this.Name = name;
     this.Name = tournament.Name;
     this.Players = tournament.Players;
     this.matches = tournament.matches;
+    this.updateEdited()
     
   }
 }
