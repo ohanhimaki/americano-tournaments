@@ -25,6 +25,11 @@ export const ExistingTournaments = ({selectTournament}: Props) => {
         setTournaments(tournaments.filter(x => x !== tournament))
         localStorageServicetmp.DeleteTournament(tournament);
     }
+    function exportTournament(tournament: tournamentState, e: React.MouseEvent<HTMLElement>) {
+        e.stopPropagation();
+        navigator.clipboard.writeText(JSON.stringify(tournament));
+        
+    }
 
     return (
         <div className="bg-gray-700">
@@ -39,6 +44,7 @@ export const ExistingTournaments = ({selectTournament}: Props) => {
                                 <th className="md:px-4 sm:px-2 py-2">Edited</th>
                                 <th className="md:px-4 sm:px-2 py-2">Players</th>
                                 <th className="md:px-4 sm:px-2 py-2">Delete</th>
+                                <th className="md:px-4 sm:px-2 py-2">Export</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -65,6 +71,16 @@ export const ExistingTournaments = ({selectTournament}: Props) => {
                                                         onClick={(e) => deleteTournament(tournament, e)}
                                                         className="bg-palayellow-300 text-gray-900 px-2 py-1 rounded-md"
                                                     >Delete
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td className="border  border-palayellow-300">
+                                                <div className="md:flex pb-2">
+                                                    <div className="md:w-1/3 mr-3"/>
+                                                    <button
+                                                        onClick={(e) => exportTournament(tournament, e)}
+                                                        className="bg-palayellow-300 text-gray-900 px-2 py-1 rounded-md"
+                                                    >Export
                                                     </button>
                                                 </div>
                                             </td>
