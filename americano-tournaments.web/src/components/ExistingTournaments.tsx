@@ -27,9 +27,13 @@ export const ExistingTournaments = ({selectTournament}: Props) => {
     }
     function exportTournament(tournament: tournamentState, e: React.MouseEvent<HTMLElement>) {
         e.stopPropagation();
-        var localStorageServicetmp =new LocalStorageService();
         navigator.clipboard.writeText(JSON.stringify(tournament));
         
+    }
+    function exportTournamentUrl(tournament: tournamentState, e: React.MouseEvent<HTMLElement>) {
+        e.stopPropagation();
+        navigator.clipboard.writeText(window.location.href + 'import/'+btoa(JSON.stringify(tournament)));
+
     }
 
     return (
@@ -46,6 +50,7 @@ export const ExistingTournaments = ({selectTournament}: Props) => {
                                 <th className="md:px-4 sm:px-2 py-2">Players</th>
                                 <th className="md:px-4 sm:px-2 py-2">Delete</th>
                                 <th className="md:px-4 sm:px-2 py-2">Export</th>
+                                <th className="md:px-4 sm:px-2 py-2">ExportUrl</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -80,6 +85,16 @@ export const ExistingTournaments = ({selectTournament}: Props) => {
                                                     <div className="md:w-1/3 mr-3"/>
                                                     <button
                                                         onClick={(e) => exportTournament(tournament, e)}
+                                                        className="bg-palayellow-300 text-gray-900 px-2 py-1 rounded-md"
+                                                    >Export
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td className="border  border-palayellow-300">
+                                                <div className="md:flex pb-2">
+                                                    <div className="md:w-1/3 mr-3"/>
+                                                    <button
+                                                        onClick={(e) => exportTournamentUrl(tournament, e)}
                                                         className="bg-palayellow-300 text-gray-900 px-2 py-1 rounded-md"
                                                     >Export
                                                     </button>
